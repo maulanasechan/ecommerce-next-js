@@ -1,10 +1,23 @@
-import { Button } from "@/components/ui/button";
+"use client";
 
-export default function Home() {
+import { useEffect, useState } from "react";
+
+import { Modal } from "@/components/modal";
+import { useStoreModal } from "@/hooks/use-store-modal";
+
+export default function SetUpPage() {
+  const onOpen = useStoreModal((state) => state.onOpen);
+  const isOpen = useStoreModal((state) => state.isOpen);
+
+  useEffect(() => {
+    if (!isOpen) {
+      onOpen();
+    }
+  }, [isOpen, onOpen]);
+
   return (
-    <div className=" w-full h-full flex flex-col items-center justify-center gap-5 ">
-      <p>Hello Admin</p>
-      <Button variant="destructive">Click me</Button>
+    <div className=" w-full h-full gap-5 ">
+      <p>ROUTE PAGE</p>
     </div>
   );
 }
