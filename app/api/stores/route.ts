@@ -9,6 +9,11 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     const { name } = body;
+    const existingStore = await prismadb.store.findFirst({
+      where: {
+        name: name,
+      },
+    });
 
     if (!userId) {
       return new NextResponse("Unathorized", { status: 401 });
@@ -18,14 +23,19 @@ export async function POST(req: Request) {
       return new NextResponse("Name is required", { status: 400 });
     }
 
+    if (existingStore) {
+      return new NextResponse("Store name is exist", { status: 400 });
+    }
+
     const store_post = await prismadb.store.create({
       data: {
         name,
         userId,
       },
     });
+
+    return NextResponse.json(store_post);
   } catch (error) {
-    console.log("[STORES_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
