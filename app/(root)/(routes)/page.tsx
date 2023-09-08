@@ -15,9 +15,5 @@ export default function SetUpPage() {
     }
   }, [isOpen, onOpen]);
 
-  return (
-    <div className=" w-full h-full gap-5 ">
-      <p>ROUTE PAGE</p>
-    </div>
-  );
+  return null;
 }
