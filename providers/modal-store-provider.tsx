@@ -3,7 +3,7 @@
 import { StoreModal } from "@/components/modal/store-modal";
 import { useEffect, useState } from "react";
 
-export function ModalProvider({}) {
+export function ModalStoreProvider({}) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {

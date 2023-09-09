@@ -9,11 +9,6 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     const { name } = body;
-    const existingStore = await prismadb.store.findFirst({
-      where: {
-        name: name,
-      },
-    });
 
     if (!userId) {
       return new NextResponse("Unathorized", { status: 401 });
@@ -22,6 +17,13 @@ export async function POST(req: Request) {
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
     }
+
+    const existingStore = await prismadb.store.findFirst({
+      where: {
+        name: name,
+        userId: userId,
+      },
+    });
 
     if (existingStore) {
       return new NextResponse("Store name is exist", { status: 400 });
